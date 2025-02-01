@@ -2,7 +2,6 @@
 
 namespace App\Services\User\Data;
 
-use Illuminate\Support\Facades\Hash;
 use Spatie\LaravelData\Data;
 
 class RegisterUserData extends Data
@@ -11,7 +10,7 @@ class RegisterUserData extends Data
         public string $name,
         public string $login,
         public string $email,
-        public string $password
+        public string $password,
     ) {
     }
 }

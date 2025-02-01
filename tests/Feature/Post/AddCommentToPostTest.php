@@ -38,7 +38,9 @@ class AddCommentToPostTest extends TestCase
         $response->assertJsonStructure([
             'id',
             'user' => [
-                'id', 'name', 'avatar'
+                'id',
+                'name',
+                'avatar'
             ],
             'comment',
             'createdAt'

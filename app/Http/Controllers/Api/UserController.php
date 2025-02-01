@@ -12,6 +12,8 @@ use App\Http\Resources\User\CurrentUserResource;
 use App\Http\Resources\User\SubscriberResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class UserController extends Controller
 {
@@ -39,25 +41,25 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function subscribers(User $user)
+    public function subscribers(User $user): AnonymousResourceCollection
     {
         return SubscriberResource::collection($user->subscriptions);
     }
 
-    public function subscribe(User $user)
+    public function subscribe(User $user): JsonResponse
     {
         return response()->json([
-            'state' => $user->subscribe()
+            'state' => $user->subscribe(),
         ]);
     }
 
-    public function posts(GetPostsRequest $request, User $user)
+    public function posts(GetPostsRequest $request, User $user): JsonResponse
     {
         $posts = UserFacade::posts($user, $request->limit, $request->offset);
 
         return response()->json([
             'posts' => FeedPostResource::collection($posts),
-            'total' => $posts->count()
+            'total' => $posts->count(),
         ]);
     }
 }

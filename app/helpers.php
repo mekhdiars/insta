@@ -19,6 +19,6 @@ function responseFailed(?string $message = null, int $code = 400): JsonResponse
 
 function uploadedImage(UploadedFile $image): string
 {
-    $image->storePublicly('public/avatars');
+    $image->storePublicly('avatars');
     return asset('storage/public/avatars/' . $image->hashName());
 }

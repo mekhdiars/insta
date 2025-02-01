@@ -23,13 +23,13 @@ class PostController extends Controller
             ->only(['update', 'destroy']);
     }
 
-    public function index(GetPostsRequest $request)
+    public function index(GetPostsRequest $request): JsonResponse
     {
         $posts = PostFacade::feed($request->limit, $request->offset);
 
         return response()->json([
             'posts' => FeedPostResource::collection($posts),
-            'total' => $posts->count()
+            'total' => $posts->count(),
         ]);
     }
 
@@ -62,7 +62,7 @@ class PostController extends Controller
     public function like(Post $post): JsonResponse
     {
         return response()->json([
-            'state' => $post->like()
+            'state' => $post->like(),
         ]);
     }
 
@@ -71,7 +71,7 @@ class PostController extends Controller
         return new CommentResource(
             $post->comments()->create([
                 'user_id' => auth()->id(),
-                'comment' => $request->data()->comment
+                'comment' => $request->data()->comment,
             ])
         );
     }
